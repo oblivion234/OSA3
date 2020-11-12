@@ -25,7 +25,7 @@ int main()
     {
         freeFrameList[i] = -1;
     }
-    
+
     do
     {
         cout << "Enter Command:";
@@ -78,9 +78,13 @@ int main()
 void memoryManager (int memSize, int frameSize)
 {
     //cout << "MEM" << endl << memSize << endl << frameSize << endl;
+    int *freeFrame;
+    freeFrame = new int [memSize];
+
     for (int i = 0; i < memSize; i++)
     {
-        freeFrameList[freeFrameIndex] = 0;
+        freeFrame[i] = 0;
+        freeFrameList[freeFrameIndex] = i;
         freeFrameIndex++;
     }
 }
@@ -110,7 +114,7 @@ void printMemory(void)
     //free
     for (int i = 0; i < 100; i ++)
     {
-        if (freeFrameList[i] == 0)
+        if (freeFrameList[i] != -1)
         {
             cout << i << " ";
             cout << freeFrameList[i] << endl;
@@ -120,7 +124,7 @@ void printMemory(void)
     //not free
         for (int i = 0; i < 100; i ++)
     {
-        if (freeFrameList[i] != 0)
+        if (freeFrameList[i] == -1)
         {
             cout << i << " ";
         }
