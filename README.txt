@@ -12,4 +12,4 @@ To run RajcheGirtonA3:
 	- P
 	- Exit
 - The last command is to exit the program.
-
+-Our program design uses a lot of global variables to make sure all the functions have access to the same information without having to pass that information into the functions.
