@@ -28,12 +28,12 @@ public:
 	~list();
 
 
-
+	//list operations
 	int searchList();
-    int returnPID (int);
-	void insertNode(int, int, int);
+	void insertNode(int, int);
 	void deleteNode(int);
-	
+	int returnPID (int);
+
 
 
 };

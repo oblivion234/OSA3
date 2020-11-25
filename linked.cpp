@@ -13,7 +13,7 @@ using namespace std;
 ***  IN/OUT ARGS   :  N/A											  ***
 ***  RETURN :  void													   ***
 ***********************************************************************/
-void list::insertNode(int pageNum, int count, int pid)
+void list::insertNode(int pageNum, int pid)
 {
 	ListNode* nodePtr;
 	ListNode* newNode;
@@ -21,8 +21,8 @@ void list::insertNode(int pageNum, int count, int pid)
 
 	newNode = new ListNode;
 	newNode->pageNum = pageNum;
-	newNode->count = count;
-    newNode->pid = pid;
+	newNode->pid=pid;
+	newNode->count = 0;
 
 
 	if (!head)
@@ -37,8 +37,8 @@ void list::insertNode(int pageNum, int count, int pid)
 
 		while (nodePtr != nullptr && nodePtr->count <= count)
 		{
-			prevNode->count++;
-            prevNode = nodePtr;
+            nodePtr->count=nodePtr->count++;
+			prevNode = nodePtr;
 			nodePtr = nodePtr->next;
 		}
 
@@ -52,6 +52,20 @@ void list::insertNode(int pageNum, int count, int pid)
 			prevNode->next = newNode;
 			newNode->next = nullptr;
 		}
+	}
+}
+
+int list::returnPID (int pageNum)
+{
+    ListNode* nodePtr;
+
+	nodePtr = head;
+
+	while (nodePtr)
+	{
+		if (nodePtr->pageNum == pageNum)
+            return nodePtr->pid;
+		nodePtr = nodePtr->next;
 	}
 }
 
@@ -106,22 +120,16 @@ void list::deleteNode(int pageNum)
 int list::searchList()
 {
 	ListNode* nodePtr;
-    nodePtr = head;
-	return nodePtr->pageNum;
-}
 
-int list::returnPID (int pageNum)
-{
-    ListNode* nodePtr;
-
-	nodePtr = head;
-
-	while (nodePtr)
+	if (!head)
 	{
-		if (nodePtr->pageNum == pageNum)				
-            return nodePtr->pid;
-		nodePtr = nodePtr->next;
+		return false;
 	}
+	else
+	{
+		nodePtr = head;
+	}
+	return nodePtr->pageNum;
 }
 
 /**********************************************************************
