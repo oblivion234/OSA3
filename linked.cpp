@@ -6,40 +6,6 @@
 using namespace std;
 
 /**********************************************************************
-***  FUNCTION appendNode *** **********************************************
-***  DESCRIPTION  : appends a node to the end of the list			***
-***  INPUT ARGS     :  string name, string value, int len, int address      ***
-***  OUTPUT ARGS :  N/A												 ***
-***  IN/OUT ARGS   :  N/A											  ***
-***  RETURN :  void													   ***
-***********************************************************************/
-void list::appendNode(int pageNum, int count)
-{
-	ListNode* newNode;
-	ListNode* nodePtr;
-
-	newNode = new ListNode;
-	newNode->pageNum = pageNum;
-    newNode->count = count;
-	newNode->next = nullptr;
-
-	if (!head)
-	{
-		head = newNode;
-	}
-	else
-	{
-		nodePtr = head;
-
-		while (nodePtr->next)
-		{
-			nodePtr = nodePtr->next;
-		}
-		nodePtr->next = newNode;
-	}
-}
-
-/**********************************************************************
 ***  FUNCTION insertNode *** **********************************************
 ***  DESCRIPTION  :  inserts a node into the list based on the name	 ***
 ***  INPUT ARGS     : string name, string value, int len, int address     ***
@@ -47,7 +13,7 @@ void list::appendNode(int pageNum, int count)
 ***  IN/OUT ARGS   :  N/A											  ***
 ***  RETURN :  void													   ***
 ***********************************************************************/
-void list::insertNode(int pageNum, int count)
+void list::insertNode(int pageNum, int count, int pid)
 {
 	ListNode* nodePtr;
 	ListNode* newNode;
@@ -56,6 +22,7 @@ void list::insertNode(int pageNum, int count)
 	newNode = new ListNode;
 	newNode->pageNum = pageNum;
 	newNode->count = count;
+    newNode->pid = pid;
 
 
 	if (!head)
@@ -68,9 +35,10 @@ void list::insertNode(int pageNum, int count)
 		nodePtr = head;
 		prevNode = nullptr;
 
-		while (nodePtr != nullptr && nodePtr->count < count)
+		while (nodePtr != nullptr && nodePtr->count <= count)
 		{
-			prevNode = nodePtr;
+			prevNode->count++;
+            prevNode = nodePtr;
 			nodePtr = nodePtr->next;
 		}
 
@@ -127,30 +95,6 @@ void list::deleteNode(int pageNum)
 }
 
 /**********************************************************************
-***  FUNCTION displayList *** **********************************************
-***  DESCRIPTION  :  displays the enotre list in order				***
-***  INPUT ARGS     :  N/A							                ***
-***  OUTPUT ARGS :  N/A												 ***
-***  IN/OUT ARGS   :  N/A											  ***
-***  RETURN :  	void												   ***
-***********************************************************************/
-void list::displayList()
-{
-	ListNode* nodePtr;
-	int num = 15;
-	nodePtr = head;
-
-	while (nodePtr)
-	{
-		cout << setw(num) << nodePtr->pageNum;
-		cout << setw(num) << nodePtr->pid;
-        cout << setw(num) << nodePtr->count;
-
-		nodePtr = nodePtr->next;
-	}
-}
-
-/**********************************************************************
 ***  FUNCTION searchList *** **********************************************
 ***  DESCRIPTION  : searches for a node in the list based on name    ***
 ***		and returns true if found									***
@@ -162,21 +106,22 @@ void list::displayList()
 int list::searchList()
 {
 	ListNode* nodePtr;
-
-	if (!head)
-	{
-		return false;
-	}
-	else
-	{
-		nodePtr = head;
-
-		while (nodePtr)
-		{
-			nodePtr = nodePtr->next;
-		}
-	}
+    nodePtr = head;
 	return nodePtr->pageNum;
+}
+
+int list::returnPID (int pageNum)
+{
+    ListNode* nodePtr;
+
+	nodePtr = head;
+
+	while (nodePtr)
+	{
+		if (nodePtr->pageNum == pageNum)				
+            return nodePtr->pid;
+		nodePtr = nodePtr->next;
+	}
 }
 
 /**********************************************************************
