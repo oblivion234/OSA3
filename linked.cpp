@@ -35,7 +35,7 @@ void list::insertNode(int pageNum, int pid)
 		nodePtr = head;
 		prevNode = nullptr;
 
-		while (nodePtr != nullptr && nodePtr->count <= count)
+		while (nodePtr != nullptr)
 		{
             nodePtr->count=nodePtr->count++;
 			prevNode = nodePtr;
